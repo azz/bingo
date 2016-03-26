@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "target": "es2015",
+        "module": "es2015",
+        "experimentalDecorators": false,
+        "locale": "en-AU"
+    },
+    "files": [
+        "typings/main.d.ts",
+        "client/index.js",
+        "server/index.js"
+    ]
+}
