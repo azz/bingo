@@ -42,8 +42,11 @@ class BingoApp extends React.Component {
     renderNavbar() {
         return (
         <nav className="navbar navbar-fixed-top navbar-dark bg-inverse">
-            <a className="navbar-brand" href="#">Bingo</a>
+            <a className="navbar-brand" href="#">eBingo</a>
             <ul className="nav navbar-nav">
+                <li className="nav-item">
+                    <a href="#" className="nav-link">Find Games</a>
+                </li>
                 <li className="nav-item active">
                     <a href="#" className="nav-link">Play</a>
                 </li>

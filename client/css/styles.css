@@ -5,18 +5,40 @@ body {
 
 .bingo-cell {
     border: 1px solid black;
-    height: calc(10vh + 10px);
+    height: 20vw;
+    max-height: 11vh;
+    padding: 0;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
-.bingo-cell h6 { /* free space */
+.bingo-cell.already-clicked h2 {
+    text-decoration: line-through;
 }
 
 .bingo-cell::before {
-   /* content: "";
-    display: inline-block;
-    margin-top: 80%; */
+  content: " ";
+  display: inline-block;
+  vertical-align: middle;
+  height: 110%;
 }
 
-.vcenter {
-    transform: translateY(3vh);
+.vcenter  {
+  max-width: 100%;
+  display: inline-block;
+  vertical-align: middle;
+} 
+
+.bingo-button-row {
+    margin-top: 2rem;
+}
+
+.bingo-cell-row .bingo-cell {
+    border-radius: 3px;
+}
+
+.bingo-cell {
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }

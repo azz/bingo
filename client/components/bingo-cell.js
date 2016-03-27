@@ -13,9 +13,12 @@ class BingoCell extends React.Component {
     render() {
         const {x, onClick, clickable, alreadyClicked} = this.props;
 
-        let css = ["col-xs-2", "bingo-cell"];
+        let css = ["col-xs-2 col-lg-1", "bingo-cell"];
         if (x === 0)
             css.push("col-xs-offset-1");        
+        if (alreadyClicked)
+            css.push("already-clicked");
+            
         return ((clickable && !alreadyClicked)
             ? <a href="#"
                  style={cellStyle} 
@@ -23,20 +26,22 @@ class BingoCell extends React.Component {
                  onClick={onClick}>                
                  {this.renderInner()}
               </a>
-           : <span
+            : <span
                  style={cellStyle} 
                  className={css.join(' ')}>
                  {this.renderInner()}
-             </span>
+              </span>
         );
     }
     
     renderInner() {
         const {number} = this.props;
-        
+                
         return number === null 
-            ? <h6 className="vcenter">2FREE<br/>SPACE</h6>
-            : <h3 className="vcenter">{number}</h3>;        
+            ? <h6 className="vcenter">FREE<br/>SPACE</h6>
+            : ~"BINGO".indexOf(number) 
+                ? <h1 className="vcenter">{number}</h1>
+                : <h2 className="vcenter">{number}</h2>;
     }
 };
 

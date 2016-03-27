@@ -16,32 +16,46 @@ class BingoGame extends React.Component {
             isEqual(c, cell)).length;
     }
     
-    render() {
-        const {onCellClick} = this.props;
-        
+    render() {        
         return (
         <div>
-            {this.props.cells.map((row, y) =>
-            <div key={y} className="row">
-                {row.map((number, x) => 
-                    <BingoCell 
-                        key={x} 
-                        x={x}
-                        y={y}
-                        clickable={y > 0 && (y !== 3 || x !== 2)}
-                        alreadyClicked={this.alreadyClicked({ x, y, number })}
-                        number={number}
-                        onClick={e => {
-                            e.preventDefault();
-                            onCellClick(x, y)
-                        }}
-                    />
-                )}
-            </div>
-            )}
+           {this.renderCells()}
+           
+           {this.renderBingoButton()}
         </div>
         );    
-    }    
+    }
+    
+    renderCells() {
+        const {onCellClick} = this.props;
+
+        return this.props.cells.map((row, y) =>
+        <div key={y} className="row bingo-cell-row">
+            {row.map((number, x) => 
+                <BingoCell 
+                    key={x} 
+                    x={x}
+                    y={y}
+                    clickable={y > 0 && (y !== 3 || x !== 2)}
+                    alreadyClicked={this.alreadyClicked({ x, y, number })}
+                    number={number}
+                    onClick={e => {
+                        e.preventDefault();
+                        onCellClick(x, y)
+                    }}
+                />
+            )}
+        </div>
+        );     
+    }
+    
+    renderBingoButton() {
+        return (
+            <div className="row bingo-button-row">
+                <button type="button" className="col-xs-offset-4 col-xs-4 btn btn-primary btn-lg">BINGO!</button>
+            </div>
+        );
+    }
 }
 
 const mapStateToProps = state => ({
