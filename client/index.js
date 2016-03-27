@@ -2,27 +2,27 @@
 
 import React from "react"; window.React = React;
 import ReactDOM from "react-dom";
-import {createStore} from "redux";
 import {Provider} from "react-redux";
+import io from "socket.io-client";
 
 import "./css/bootstrap.css";
 import "./css/styles.css";
 
 import BingoGame from "./components/bingo-game";
-import reducer from "./reducers";
+import {finalCreateStore} from "./store";
 
-const store = createStore(
-    reducer, 
-    void 0,
-    window.devToolsExtension ? window.devToolsExtension() : f => f
-);
+import {setBoard, callBall} from "./actions";
 
-if (module.hot) {
-    module.hot.accept('./reducers', () => {
-        const nextRootReducer = require('./reducers');
-        store.replaceReducer(nextRootReducer);
-    });
-}
+const store = finalCreateStore();
+const socket = io();
+
+socket.on('board', board => 
+    store.dispatch(setBoard(board)));
+
+socket.on('new-ball', ball => 
+    store.dispatch(callBall(ball)));
+
+socket.emit('join-game', 0);
 
 class BingoApp extends React.Component {
     constructor(props) {
