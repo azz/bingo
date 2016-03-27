@@ -36,9 +36,9 @@ function callBall(game) {
     }
 }
 
-function joinGame(socket, gameId) {
-    console.log(`player "${socket.id}" joined game ${gameId}"`);  
-    activeGames[gameId].participants.push(socket.id);
+function joinGame(socket, game) {
+    console.log(`player "${socket.id}" joined game ${game.id}"`);  
+    game.participants.push(socket.id);
     socket.emit('board', generateBoard());
 }
 
@@ -74,6 +74,6 @@ io.on('connection', socket => {
     });
   
     socket.on('join-game', gameId => {        
-        (gameId in activeGames) && joinGame(socket, gameId);
+        (gameId in activeGames) && joinGame(socket, activeGames[gameId]);
     });
 });
