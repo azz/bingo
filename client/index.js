@@ -22,6 +22,9 @@ socket.on('board', board =>
 socket.on('new-ball', ball => 
     store.dispatch(callBall(ball)));
 
+socket.on('called-balls', balls => 
+    balls.forEach(ball => store.dispatch(callBall(ball))));
+
 socket.emit('join-game', 0);
 
 class BingoApp extends React.Component {

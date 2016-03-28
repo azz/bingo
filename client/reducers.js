@@ -1,40 +1,40 @@
-import {chunk, range, sampleSize, isUndefined} from "lodash";
+import {chunk, range, sampleSize, isUndefined, assign} from "lodash";
 
 import * as types from "./action-types";
 
 const initialState = {
-  cells: [["..."]],
-  cellsClicked: [],
+    cells: [["..."]],
+    cellsClicked: [],
+    ballsCalled: [],
 };
 
 export default function reducer(state, action) {
-  if (isUndefined(state)) {
-    return initialState;
-  }
+    if (isUndefined(state)) {
+        return initialState;
+    }
 
-  const {type, payload} = action;
+    const {type, payload} = action;
 
-  switch (type) {
-      case types.CLICK_CELL:
-          return {
-              ...state,
-              cellsClicked: state.cellsClicked.concat({
-                  ...payload,
-                  number: state.cells[payload.y][payload.x]
-              })
-          }
+    switch (type) {
+        case types.CLICK_CELL:
+            return assign({}, state, {
+                cellsClicked: state.cellsClicked.concat(assign({}, payload, {
+                    number: state.cells[payload.y][payload.x]
+                }))
+            });
 
-      case types.SET_BOARD:
-          return {
-              ...state,
-              cells: payload,
-              cellsClicked: []
-          }
+        case types.SET_BOARD:
+            return assign({}, state, {
+                cells: payload,
+                cellsClicked: []
+            });
 
-      case types.BALL_CALLED:
-        return state;
-        
-      default:
-        throw `Invalid action: ${action.type}`;      
-  }
+        case types.BALL_CALLED:
+            return assign({}, state, {
+                ballsCalled: state.ballsCalled.concat(payload)
+            });
+
+        default:
+            throw `Invalid action: ${action.type}`;      
+    }
 }

@@ -16,9 +16,11 @@ class BingoGame extends React.Component {
             isEqual(c, cell)).length;
     }
     
-    render() {        
+    render() {
         return (
         <div>
+           {this.renderBallsCalled()}
+           
            {this.renderCells()}
            
            {this.renderBingoButton()}
@@ -51,16 +53,30 @@ class BingoGame extends React.Component {
     
     renderBingoButton() {
         return (
-            <div className="row bingo-button-row">
-                <button type="button" className="col-xs-offset-4 col-xs-4 btn btn-primary btn-lg">BINGO!</button>
-            </div>
+        <div className="row bingo-button-row">
+            <button type="button" className="col-xs-offset-4 col-xs-4 btn btn-primary btn-lg">BINGO!</button>
+        </div>
+        );
+    }
+    
+    renderBallsCalled() {
+        const {ballsCalled} = this.props;
+        const lastIndex = ballsCalled.length - 1;
+        return (
+        <div className="row bingo-balls-row">
+            {ballsCalled.map((ball, i) => i === lastIndex
+                ? <span className="label label-pill label-success">{ball}</span>
+                : <span className="label label-pill label-primary">{ball}</span>
+            )}
+        </div>
         );
     }
 }
 
 const mapStateToProps = state => ({
    cells: state.cells,
-   cellsClicked: state.cellsClicked
+   cellsClicked: state.cellsClicked,
+   ballsCalled: state.ballsCalled
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -56,10 +56,15 @@ module.exports = (io, express) => {
             console.error("Unimplemented");
         }
 
+        function getCalledBalls(game) {
+            return game.ballsCalled;
+        }
+
         function joinGame(user, game) {
             console.log(`player "${user}" joined game ${game.id}"`);
             game.participants.push(user);
             socket.emit('board', generateBoard());
+            socket.emit('called-balls', getCalledBalls(game));
         }
 
         function leaveGame(user, game) {
@@ -67,11 +72,13 @@ module.exports = (io, express) => {
             _.pull(game.participants, user);
         }
         
-        socket.on('disconnect', () => socketDisconnect(socket.id));
+        socket.on('disconnect', 
+            () => socketDisconnect(socket.id));
 
         socket.on('create-game', socketCreateGame);
-  
-        socket.on('join-game', gameId => socketJoinGame(gameId, socket.id));
+
+        socket.on('join-game', 
+            gameId => socketJoinGame(gameId, socket.id));
     });
     
     return {

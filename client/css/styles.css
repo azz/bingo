@@ -19,16 +19,16 @@ body {
 }
 
 .bingo-cell::before {
-  content: " ";
-  display: inline-block;
-  vertical-align: middle;
-  height: 110%;
+    content: " ";
+    display: inline-block;
+    vertical-align: middle;
+    height: 110%;
 }
 
 .vcenter  {
-  max-width: 100%;
-  display: inline-block;
-  vertical-align: middle;
+    max-width: 100%;
+    display: inline-block;
+    vertical-align: middle;
 } 
 
 .bingo-button-row {
@@ -41,4 +41,38 @@ body {
 
 .bingo-cell {
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.bingo-balls-row {
+    margin-bottom: 1rem;
+}
+
+.bingo-balls-row > span {
+    height: 2rem;
+    width: 2rem;
+    font-size: 1.2rem;
+    padding-left: 0;
+    padding-right: 0;
+    margin: 0.1rem;
+}
+
+.bingo-balls-row > span:last-of-type {
+    animation-name: spin;
+    animation-duration: 500ms;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes spin {
+    0% {
+        margin-left: 2rem;
+        transform: rotate(0deg);
+    }
+    60% {
+        margin-left: -0.1rem;
+        transform: rotate(-400deg);
+    }
+    100% {
+        margin-left: 0;
+        transform: rotate(-360deg);
+    }
 }
