@@ -32,7 +32,7 @@ body {
 } 
 
 .bingo-button-row {
-    margin-top: 2rem;
+    margin-bottom: 1rem;
 }
 
 .bingo-cell-row .bingo-cell {
@@ -43,11 +43,12 @@ body {
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
-.bingo-balls-row {
-    margin-bottom: 1rem;
+.bingo-balls {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
 }
 
-.bingo-balls-row > span {
+.bingo-balls > span {
     height: 2rem;
     width: 2rem;
     font-size: 1.2rem;
@@ -56,7 +57,7 @@ body {
     margin: 0.1rem;
 }
 
-.bingo-balls-row > span:last-of-type {
+.bingo-balls > span:last-of-type {
     animation-name: spin;
     animation-duration: 500ms;
     animation-timing-function: ease-in-out;

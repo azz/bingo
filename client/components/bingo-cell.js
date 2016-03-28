@@ -13,7 +13,7 @@ class BingoCell extends React.Component {
     render() {
         const {x, onClick, clickable, alreadyClicked} = this.props;
 
-        let css = ["col-xs-2 col-lg-1", "bingo-cell"];
+        let css = ["col-xs-2", "bingo-cell"];
         if (x === 0)
             css.push("col-xs-offset-1");        
         if (alreadyClicked)

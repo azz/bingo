@@ -35,7 +35,7 @@ module.exports = (io, express) => {
             _.pull(game.ballsLeft, ball);
             game.ballsCalled.push(ball);
             console.log(`ball number ${ball}!`);
-            io.emit('new-ball', ball);
+            io.emit('ball.call', [ball]);
         }
     }
 
@@ -55,6 +55,10 @@ module.exports = (io, express) => {
         function socketCreateGame() {
             console.error("Unimplemented");
         }
+        
+        function socketBingo(user) {
+            console.log(`player ${user} called bingo!`);
+        }
 
         function getCalledBalls(game) {
             return game.ballsCalled;
@@ -63,8 +67,8 @@ module.exports = (io, express) => {
         function joinGame(user, game) {
             console.log(`player "${user}" joined game ${game.id}"`);
             game.participants.push(user);
-            socket.emit('board', generateBoard());
-            socket.emit('called-balls', getCalledBalls(game));
+            socket.emit('board.set', generateBoard());
+            socket.emit('ball.call', getCalledBalls(game));
         }
 
         function leaveGame(user, game) {
@@ -75,10 +79,12 @@ module.exports = (io, express) => {
         socket.on('disconnect', 
             () => socketDisconnect(socket.id));
 
-        socket.on('create-game', socketCreateGame);
+        socket.on('game.new', socketCreateGame);
 
-        socket.on('join-game', 
+        socket.on('game.join', 
             gameId => socketJoinGame(gameId, socket.id));
+            
+        socket.on('game.bingo', () => socketBingo(socket.id));
     });
     
     return {
