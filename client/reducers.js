@@ -26,6 +26,9 @@ const reducers = {
             called: []
         },
         call(state, balls) {
+            if (balls.length > 1) {
+                return assign(state, { called: balls });
+            }
             return assign(state, {
                 called: state.called.concat(balls)
             })
@@ -91,9 +94,13 @@ export function root(state, { type, payload }) {
     // remove the last section of the path
     const path = dropRight(type.split('.'));
 
-    // call the reducer with the state at the path
-    const nextState = reducer(get(state, path), payload);
+    if (isFunction(reducer)) {
+        // call the reducer with the state at the path
+        const nextState = reducer(get(state, path), payload);
+        
+        // update the state
+        return set(clonedState, path, nextState)
+    }
     
-    // update the state
-    return set(clonedState, path, nextState)
+    return clonedState;
 }

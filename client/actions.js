@@ -29,9 +29,21 @@ export function callBall(ball) {
 }
 
 export function joinGame(gameId) {
-    return {
-        type: 'game.join',
-        payload: gameId,
-        socket: true
+    return (dispatch, getState) => {
+        dispatch({
+            type: 'game.join',
+            payload: gameId,
+            socket: true
+        });
+        
+        dispatch({
+            waitFor: 'board.set',
+            timeout: 2000,
+            onTimeout: {
+                type: 'game.joinTimeout',
+                payload: gameId
+            },
+            onCancel: null
+        })
     }
 }
